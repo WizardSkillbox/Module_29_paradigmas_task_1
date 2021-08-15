@@ -8,11 +8,13 @@ using namespace std;
 class Animal {
 
 protected:
-    Animal()= default;
+    Animal() = default;
 
 public:
     virtual void Greet(const Animal *animal) = 0;
+
     virtual void GreetDog() const = 0;
+
     virtual void GreetCat() const = 0;
 };
 
