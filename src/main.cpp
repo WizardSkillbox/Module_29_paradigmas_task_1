@@ -6,51 +6,49 @@
 using namespace std;
 
 class Animal {
-    string name;
 
 protected:
-    explicit Animal(string inName) : name(move(inName)) {
-    }
+    Animal()= default;
 
 public:
     virtual void Greet(const Animal *animal) = 0;
-
-    const string &GetName() const {
-        return name;
-    }
+    virtual void GreetDog() const = 0;
+    virtual void GreetCat() const = 0;
 };
 
 class Dog : public Animal {
 
-public:
-    Dog() : Animal("Dog") {
+protected:
+    void GreetCat() const override {
+        cout << "Bark ";
     }
 
+    void GreetDog() const override {
+        cout << "Woof ";
+    }
+
+public:
     void Greet(const Animal *animal) override {
         assert(nullptr != animal);
-        const string nameAnimal = animal->GetName();
-        if (nameAnimal == this->GetName()) {
-            cout << "Woof ";
-        } else if (nameAnimal == "Cat") {
-            cout << "Bark ";
-        }
+        animal->GreetDog();
     }
 };
 
 class Cat : public Animal {
 
-public:
-    Cat() : Animal("Cat") {
+protected:
+    void GreetCat() const override {
+        cout << "Purr ";
     }
 
+    void GreetDog() const override {
+        cout << "Meow ";
+    }
+
+public:
     void Greet(const Animal *animal) override {
         assert(nullptr != animal);
-        const string nameAnimal = animal->GetName();
-        if (nameAnimal == this->GetName()) {
-            cout << "Purr ";
-        } else if (nameAnimal == "Dog") {
-            cout << "Meow ";
-        }
+        animal->GreetCat();
     }
 };
 
